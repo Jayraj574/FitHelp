@@ -1,4 +1,4 @@
-import { SplashScreen, Stack } from "expo-router";
+import {router, SplashScreen, Stack} from "expo-router";
 import"./globals.css";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
@@ -13,11 +13,12 @@ export default function RootLayout() {
     "Rubik-SemiBold": require("../assets/fonts/Rubik-SemiBold.ttf"),
   })
 
-  useEffect(()=>{
-    if(fontsLoaded){
+  useEffect(() => {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
+      router.replace('./(root)/(tabs)/Home');
     }
-  },[fontsLoaded]);
+  }, [fontsLoaded]);
 
 if(!fontsLoaded) return null;
 

@@ -1,6 +1,7 @@
 import {Account, Avatars, Client, OAuthProvider} from "react-native-appwrite"
 import * as Linking from 'expo-linking'
 import {openAuthSessionAsync} from "expo-web-browser";
+import {Databases} from "appwrite";
 
 export const config = {
     platform:'com.jrc.reestate',
@@ -9,6 +10,7 @@ export const config = {
 }
 
 export const client = new Client();
+export const databases = new Databases(client);
 
 client
     .setEndpoint(config.endpoint!)
@@ -30,14 +32,34 @@ export async function login(){
         const url = new URL(browserResult.url);
         const secret = url.searchParams.get('secret')?.toString();
         const userId = url.searchParams.get('userId')?.toString();
-        console.log(userId);
-        console.log(secret);
         if(!secret || !userId)throw new Error('failed to login3');
 
         const session = await account.createSession(userId, secret);
         if(!session)throw new Error('failed to create a session');
         return true;
     }catch(error){
+        console.error(error);
+        return false;
+    }
+}
+
+export async function loginWithEmail(email, password){
+    try {
+        const session = await account.createEmailPasswordSession(email, password);
+        if (session) {
+            return true;
+        }
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+export async function signupWithEmail(email, password, name){
+    try {
+        const newUser = await account.create('unique()', email, password);
+        return newUser;
+    } catch (error) {
         console.error(error);
         return false;
     }
@@ -68,19 +90,3 @@ export async function getCurrentUser(){
         return false;
     }
 }
-
-export const useAppwrite = () => {
-    const database = new Databases(client);
-
-    const createDocument = async (collectionId: string, data: any) => {
-        try {
-            const response = await database.createDocument('YOUR_DATABASE_ID', collectionId, 'unique()', data);
-            return response;
-        } catch (error) {
-            console.error('Appwrite Error:', error);
-            throw error;
-        }
-    };
-
-    return { database, createDocument };
-};
