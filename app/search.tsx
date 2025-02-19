@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, TextInput, FlatList, Button } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import {router, useLocalSearchParams} from 'expo-router';
 import { client } from '@/lib/appwrite';
 import { Databases } from 'appwrite';
 
@@ -19,7 +19,7 @@ type FoodItem = {
 };
 
 const addToAppwrite = async (food: FoodItem, mealType: string, date: string): Promise<void> => {
-    console.log('Adding to Appwrite with:', { food, mealType, date });
+    //console.log('Adding to Appwrite with:', { food, mealType, date });
     try {
         const payload = {
             mealType: `${mealType}`,
@@ -30,9 +30,10 @@ const addToAppwrite = async (food: FoodItem, mealType: string, date: string): Pr
             fats: Math.round(food.nutrients.fats),
             date: `${date}`
         };
-        console.log('Sending to Appwrite:', payload);
+        //console.log('Sending to Appwrite:', payload);
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, 'unique()', payload);
-        alert(`${food.food_name} added to ${mealType}`);
+        //alert(`${food.food_name} added to ${mealType}`);
+        router.replace('/Home');
     } catch (error) {
         console.error('Error adding document:', error);
         alert('Error adding food');

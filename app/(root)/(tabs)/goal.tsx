@@ -22,9 +22,9 @@ const updateUserData = async (userId, weight, goal) => {
             weight: parseFloat(weight),
             goal,
         });
-        alert('Updated successfully');
+        //alert('Updated successfully');
     } catch (error) {
-        alert('Failed to update');
+        //alert('Failed to update');
         console.error(error);
     }
 };

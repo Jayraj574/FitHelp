@@ -18,7 +18,7 @@ const signIn = () => {
         const result = await login();
         if(result){
             console.log('login success');
-            router.replace('/(root)/(tabs)/Home');
+            router.replace('/Home');
         }
         else{
             Alert.alert('Error','Failed to login');
@@ -29,6 +29,7 @@ const signIn = () => {
         const result = await loginWithEmail(email, password);
         if(result){
             console.log('Email login success');
+            router.replace('/Home');
         } else {
             Alert.alert('Error', 'Failed to login with email');
         }

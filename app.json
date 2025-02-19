@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ReEstate",
-    "slug": "ReEstate",
+    "name": "FitHelp",
+    "slug": "FitHelp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/SplashScreen.jpg",
-    "scheme": "ReEstate",
+    "scheme": "FitHelp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
